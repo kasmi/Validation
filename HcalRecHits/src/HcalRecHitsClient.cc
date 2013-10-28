@@ -24,6 +24,7 @@ HcalRecHitsClient::HcalRecHitsClient(const edm::ParameterSet& iConfig):conf_(iCo
  
   debug_ = false;
   verbose_ = false;
+  // false for regular relval and true for SLHC relval
   doslhc_  = false;
 
   dirName_=iConfig.getParameter<std::string>("DQMDirName");
@@ -405,11 +406,7 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
 
           
             unsigned int n_depth = 4;
-
-            if (doslhc_)
-              {
-               n_depth = 7;
-              }
+            if (doslhc_){n_depth = 7;}
 	
 	     for (unsigned int i3 = 0;  i3 < n_depth;  i3++) {  // depth
 	        double emin = 100000.;
@@ -438,14 +435,13 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
 	           map_depth3->Fill(double(ieta),double(i2),emin);
                 if( i3 == 3 && emin < 10000.) 
 	           map_depth4->Fill(double(ieta),double(i2),emin);
-               if (doslhc_)
-                { 
-               if( i3 == 4 && emin < 10000.)
-                   map_depth5->Fill(double(ieta),double(i2),emin);
-                if( i3 == 5 && emin < 10000.)
-                   map_depth6->Fill(double(ieta),double(i2),emin);
-                if( i3 == 6 && emin < 10000.)
-                   map_depth7->Fill(double(ieta),double(i2),emin);
+               if (doslhc_){ 
+                  if( i3 == 4 && emin < 10000.)
+                     map_depth5->Fill(double(ieta),double(i2),emin);
+                  if( i3 == 5 && emin < 10000.)
+                     map_depth6->Fill(double(ieta),double(i2),emin);
+                  if( i3 == 6 && emin < 10000.)
+                    map_depth7->Fill(double(ieta),double(i2),emin);
                 }
 
 	    }
@@ -488,12 +484,12 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
             emap_depth4->setBinContent(i,j,cnorm);
  
             if (doslhc_){
-            cnorm = emap_depth5->getBinContent(i,j) / fev;
-            emap_depth5->setBinContent(i,j,cnorm);
-            cnorm = emap_depth6->getBinContent(i,j) / fev;
-            emap_depth6->setBinContent(i,j,cnorm);
-            cnorm = emap_depth7->getBinContent(i,j) / fev;
-            emap_depth7->setBinContent(i,j,cnorm);
+               cnorm = emap_depth5->getBinContent(i,j) / fev;
+               emap_depth5->setBinContent(i,j,cnorm);
+               cnorm = emap_depth6->getBinContent(i,j) / fev;
+               emap_depth6->setBinContent(i,j,cnorm);
+               cnorm = emap_depth7->getBinContent(i,j) / fev;
+               emap_depth7->setBinContent(i,j,cnorm);
          }
 	}
       }
@@ -530,20 +526,16 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
 	    occupancy_map_HB2->setBinContent(i,j,cnorm);
 
             if (doslhc_){
-            cnorm = occupancy_map_HB3->getBinContent(i,j) / fev;
-            occupancy_map_HB3->setBinContent(i,j,cnorm);
-
-            cnorm = occupancy_map_HB4->getBinContent(i,j) / fev;
-            occupancy_map_HB4->setBinContent(i,j,cnorm);
-
-            cnorm = occupancy_map_HB5->getBinContent(i,j) / fev;
-            occupancy_map_HB5->setBinContent(i,j,cnorm);
-
-            cnorm = occupancy_map_HB6->getBinContent(i,j) / fev;
-            occupancy_map_HB6->setBinContent(i,j,cnorm);
- 
-            cnorm = occupancy_map_HB7->getBinContent(i,j) / fev;
-            occupancy_map_HB7->setBinContent(i,j,cnorm);
+               cnorm = occupancy_map_HB3->getBinContent(i,j) / fev;
+               occupancy_map_HB3->setBinContent(i,j,cnorm);
+               cnorm = occupancy_map_HB4->getBinContent(i,j) / fev;
+               occupancy_map_HB4->setBinContent(i,j,cnorm);
+               cnorm = occupancy_map_HB5->getBinContent(i,j) / fev;
+               occupancy_map_HB5->setBinContent(i,j,cnorm);
+               cnorm = occupancy_map_HB6->getBinContent(i,j) / fev;
+               occupancy_map_HB6->setBinContent(i,j,cnorm);
+               cnorm = occupancy_map_HB7->getBinContent(i,j) / fev;
+               occupancy_map_HB7->setBinContent(i,j,cnorm);
             }
 	
 	    cnorm = occupancy_map_HE1->getBinContent(i,j) / fev;   
@@ -556,17 +548,14 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
             occupancy_map_HE3->setBinContent(i,j,cnorm);
 	
             if (doslhc_){
-	    cnorm = occupancy_map_HE4->getBinContent(i,j) / fev;   
-	    occupancy_map_HE4->setBinContent(i,j,cnorm);
-	
-            cnorm = occupancy_map_HE5->getBinContent(i,j) / fev;
-            occupancy_map_HE5->setBinContent(i,j,cnorm);
-
-            cnorm = occupancy_map_HE6->getBinContent(i,j) / fev;
-            occupancy_map_HE6->setBinContent(i,j,cnorm);
-
-            cnorm = occupancy_map_HE7->getBinContent(i,j) / fev;
-            occupancy_map_HE7->setBinContent(i,j,cnorm);
+	       cnorm = occupancy_map_HE4->getBinContent(i,j) / fev;   
+	       occupancy_map_HE4->setBinContent(i,j,cnorm);
+               cnorm = occupancy_map_HE5->getBinContent(i,j) / fev;
+               occupancy_map_HE5->setBinContent(i,j,cnorm);
+               cnorm = occupancy_map_HE6->getBinContent(i,j) / fev;
+               occupancy_map_HE6->setBinContent(i,j,cnorm);
+               cnorm = occupancy_map_HE7->getBinContent(i,j) / fev;
+               occupancy_map_HE7->setBinContent(i,j,cnorm);
             }
 
 	    cnorm = occupancy_map_HO->getBinContent(i,j) / fev;   
@@ -582,11 +571,11 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
 	    sumphi_hb2 += occupancy_map_HB2->getBinContent(i,j);
            
             if (doslhc_){
-            sumphi_hb3 += occupancy_map_HB3->getBinContent(i,j);
-            sumphi_hb4 += occupancy_map_HB4->getBinContent(i,j);
-            sumphi_hb5 += occupancy_map_HB5->getBinContent(i,j);
-            sumphi_hb6 += occupancy_map_HB6->getBinContent(i,j);
-            sumphi_hb7 += occupancy_map_HB7->getBinContent(i,j);
+               sumphi_hb3 += occupancy_map_HB3->getBinContent(i,j);
+               sumphi_hb4 += occupancy_map_HB4->getBinContent(i,j);
+               sumphi_hb5 += occupancy_map_HB5->getBinContent(i,j);
+               sumphi_hb6 += occupancy_map_HB6->getBinContent(i,j);
+               sumphi_hb7 += occupancy_map_HB7->getBinContent(i,j);
             }
 
 	    sumphi_he1 += occupancy_map_HE1->getBinContent(i,j);
@@ -594,10 +583,10 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
 	    sumphi_he3 += occupancy_map_HE3->getBinContent(i,j);
       
             if (doslhc_){
-            sumphi_he4 += occupancy_map_HE4->getBinContent(i,j);
-            sumphi_he5 += occupancy_map_HE5->getBinContent(i,j);
-            sumphi_he6 += occupancy_map_HE6->getBinContent(i,j);
-            sumphi_he7 += occupancy_map_HE7->getBinContent(i,j);
+               sumphi_he4 += occupancy_map_HE4->getBinContent(i,j);
+               sumphi_he5 += occupancy_map_HE5->getBinContent(i,j);
+               sumphi_he6 += occupancy_map_HE6->getBinContent(i,j);
+               sumphi_he7 += occupancy_map_HE7->getBinContent(i,j);
             }
 
 	    sumphi_ho  += occupancy_map_HO->getBinContent(i,j);
@@ -653,16 +642,16 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
          occupancy_vs_ieta_HB2->Fill(float(ieta), cnorm);
 
          if (doslhc_){
-         cnorm = sumphi_hb3 / phi_factor;
-         occupancy_vs_ieta_HB3->Fill(float(ieta), cnorm);
-         cnorm = sumphi_hb4 / phi_factor;
-         occupancy_vs_ieta_HB4->Fill(float(ieta), cnorm);
-         cnorm = sumphi_hb5 / phi_factor;
-         occupancy_vs_ieta_HB5->Fill(float(ieta), cnorm);
-         cnorm = sumphi_hb6 / phi_factor;
-         occupancy_vs_ieta_HB6->Fill(float(ieta), cnorm);
-         cnorm = sumphi_hb7 / phi_factor;
-         occupancy_vs_ieta_HB7->Fill(float(ieta), cnorm);
+            cnorm = sumphi_hb3 / phi_factor;
+            occupancy_vs_ieta_HB3->Fill(float(ieta), cnorm);
+            cnorm = sumphi_hb4 / phi_factor;
+            occupancy_vs_ieta_HB4->Fill(float(ieta), cnorm);
+            cnorm = sumphi_hb5 / phi_factor;
+            occupancy_vs_ieta_HB5->Fill(float(ieta), cnorm);
+            cnorm = sumphi_hb6 / phi_factor;
+            occupancy_vs_ieta_HB6->Fill(float(ieta), cnorm);
+            cnorm = sumphi_hb7 / phi_factor;
+            occupancy_vs_ieta_HB7->Fill(float(ieta), cnorm);
          }
 
          cnorm = sumphi_he1 / phi_factor;
@@ -673,14 +662,14 @@ int HcalRecHitsClient::HcalRecHitsEndjob(const std::vector<MonitorElement*> &hca
          occupancy_vs_ieta_HE3->Fill(float(ieta), cnorm);
 
          if (doslhc_){
-         cnorm = sumphi_he4 / phi_factor;
-         occupancy_vs_ieta_HE4->Fill(float(ieta), cnorm);
-         cnorm = sumphi_he5 / phi_factor;
-         occupancy_vs_ieta_HE5->Fill(float(ieta), cnorm);
-         cnorm = sumphi_he6 / phi_factor;
-         occupancy_vs_ieta_HE6->Fill(float(ieta), cnorm);
-         cnorm = sumphi_he7 / phi_factor;
-         occupancy_vs_ieta_HE7->Fill(float(ieta), cnorm);
+            cnorm = sumphi_he4 / phi_factor;
+            occupancy_vs_ieta_HE4->Fill(float(ieta), cnorm);
+            cnorm = sumphi_he5 / phi_factor;
+            occupancy_vs_ieta_HE5->Fill(float(ieta), cnorm);
+            cnorm = sumphi_he6 / phi_factor;
+            occupancy_vs_ieta_HE6->Fill(float(ieta), cnorm);
+            cnorm = sumphi_he7 / phi_factor;
+            occupancy_vs_ieta_HE7->Fill(float(ieta), cnorm);
          }
 
          cnorm = sumphi_ho / phi_factor;

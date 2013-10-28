@@ -37,7 +37,7 @@ HcalDigisClient::HcalDigisClient(const edm::ParameterSet& iConfig) {
     booking("HE");
     booking("HO");
     booking("HF");
-
+    // false for regular rel val and true for SLHC rel val
     doslhc_  = false;
 
 }
@@ -118,40 +118,40 @@ int HcalDigisClient::HcalDigisEndjob(const std::vector<MonitorElement*> &hcalMEs
          if (hcalMEs[ih]->getName() == strtmp) ieta_iphi_occupancy_map4 = hcalMEs[ih];
         
          if (doslhc_){
-         strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth5_" + subdet_;
-         if (hcalMEs[ih]->getName() == strtmp) ieta_iphi_occupancy_map5 = hcalMEs[ih];
-         strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth6_" + subdet_;
-         if (hcalMEs[ih]->getName() == strtmp) ieta_iphi_occupancy_map6 = hcalMEs[ih];
-         strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth7_" + subdet_;
-         if (hcalMEs[ih]->getName() == strtmp) ieta_iphi_occupancy_map7 = hcalMEs[ih];
+            strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth5_" + subdet_;
+            if (hcalMEs[ih]->getName() == strtmp) ieta_iphi_occupancy_map5 = hcalMEs[ih];
+            strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth6_" + subdet_;
+            if (hcalMEs[ih]->getName() == strtmp) ieta_iphi_occupancy_map6 = hcalMEs[ih];
+            strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth7_" + subdet_;
+            if (hcalMEs[ih]->getName() == strtmp) ieta_iphi_occupancy_map7 = hcalMEs[ih];
          }
-
     }//
 
 
     if (doslhc_ == false){
-    if (nevtot                   == 0 ||
-	ieta_iphi_occupancy_map1 == 0 ||
-	ieta_iphi_occupancy_map2 == 0 ||
-	ieta_iphi_occupancy_map3 == 0 ||
-	ieta_iphi_occupancy_map4 == 0  
-	) {
-      edm::LogError("HcalDigisClient") << "No nevtot or maps histo found..."; 
-      return 0;
-    }}
-    else {
-    if (nevtot                   == 0 ||
-        ieta_iphi_occupancy_map1 == 0 ||
-        ieta_iphi_occupancy_map2 == 0 ||
-        ieta_iphi_occupancy_map3 == 0 ||
-        ieta_iphi_occupancy_map4 == 0 ||
-        ieta_iphi_occupancy_map5 == 0 ||
-        ieta_iphi_occupancy_map6 == 0 ||
-        ieta_iphi_occupancy_map7 == 0
-        ) {
-      edm::LogError("HcalDigisClient") << "No nevtot or maps histo found...";
-      return 0;
+       if (nevtot                   == 0 ||
+           ieta_iphi_occupancy_map1 == 0 ||
+           ieta_iphi_occupancy_map2 == 0 ||
+           ieta_iphi_occupancy_map3 == 0 ||
+           ieta_iphi_occupancy_map4 == 0  
+           ) {
+         edm::LogError("HcalDigisClient") << "No nevtot or maps histo found..."; 
+         return 0;
+       }
     }
+    else {
+       if (nevtot                   == 0 ||
+           ieta_iphi_occupancy_map1 == 0 ||
+           ieta_iphi_occupancy_map2 == 0 ||
+           ieta_iphi_occupancy_map3 == 0 ||
+           ieta_iphi_occupancy_map4 == 0 ||
+           ieta_iphi_occupancy_map5 == 0 ||
+           ieta_iphi_occupancy_map6 == 0 ||
+           ieta_iphi_occupancy_map7 == 0
+           ) {
+         edm::LogError("HcalDigisClient") << "No nevtot or maps histo found...";
+         return 0;
+        }
    }
 
 
@@ -204,20 +204,18 @@ int HcalDigisClient::HcalDigisEndjob(const std::vector<MonitorElement*> &hcalMEs
              sumphi_4 += ieta_iphi_occupancy_map4->getBinContent(i, j);
 
              if (doslhc_){
-             strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth5_" + subdet_;
-             cnorm = ieta_iphi_occupancy_map5->getBinContent(i, j) / fev;
-             ieta_iphi_occupancy_map5->setBinContent(i, j, cnorm);
-             sumphi_5 += ieta_iphi_occupancy_map5->getBinContent(i, j);
-        
-             strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth6_" + subdet_;
-             cnorm = ieta_iphi_occupancy_map6->getBinContent(i, j) / fev;
-             ieta_iphi_occupancy_map6->setBinContent(i, j, cnorm);
-             sumphi_6 += ieta_iphi_occupancy_map6->getBinContent(i, j);
-
-             strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth7_" + subdet_;
-             cnorm = ieta_iphi_occupancy_map7->getBinContent(i, j) / fev;
-             ieta_iphi_occupancy_map7->setBinContent(i, j, cnorm);
-             sumphi_7 += ieta_iphi_occupancy_map7->getBinContent(i, j);
+                strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth5_" + subdet_;
+                cnorm = ieta_iphi_occupancy_map5->getBinContent(i, j) / fev;
+                ieta_iphi_occupancy_map5->setBinContent(i, j, cnorm);
+                sumphi_5 += ieta_iphi_occupancy_map5->getBinContent(i, j);
+                strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth6_" + subdet_;
+                cnorm = ieta_iphi_occupancy_map6->getBinContent(i, j) / fev;
+                ieta_iphi_occupancy_map6->setBinContent(i, j, cnorm);
+                sumphi_6 += ieta_iphi_occupancy_map6->getBinContent(i, j);
+                strtmp = "HcalDigiTask_ieta_iphi_occupancy_map_depth7_" + subdet_;
+                cnorm = ieta_iphi_occupancy_map7->getBinContent(i, j) / fev;
+                ieta_iphi_occupancy_map7->setBinContent(i, j, cnorm);
+                sumphi_7 += ieta_iphi_occupancy_map7->getBinContent(i, j);
              }
 
         }    
@@ -255,17 +253,15 @@ int HcalDigisClient::HcalDigisEndjob(const std::vector<MonitorElement*> &hcalMEs
         fill1D(strtmp, deta, cnorm);
 
         if (doslhc_){
-        cnorm = sumphi_5 / phi_factor;
-        strtmp = "HcalDigiTask_occupancy_vs_ieta_depth5_" + subdet_;
-        fill1D(strtmp, deta, cnorm);
-
-        cnorm = sumphi_6 / phi_factor;
-        strtmp = "HcalDigiTask_occupancy_vs_ieta_depth6_" + subdet_;
-        fill1D(strtmp, deta, cnorm);
-
-        cnorm = sumphi_7 / phi_factor;
-        strtmp = "HcalDigiTask_occupancy_vs_ieta_depth7_" + subdet_;
-        fill1D(strtmp, deta, cnorm);
+           cnorm = sumphi_5 / phi_factor;
+           strtmp = "HcalDigiTask_occupancy_vs_ieta_depth5_" + subdet_;
+           fill1D(strtmp, deta, cnorm);
+           cnorm = sumphi_6 / phi_factor;
+           strtmp = "HcalDigiTask_occupancy_vs_ieta_depth6_" + subdet_;
+           fill1D(strtmp, deta, cnorm);
+           cnorm = sumphi_7 / phi_factor;
+           strtmp = "HcalDigiTask_occupancy_vs_ieta_depth7_" + subdet_;
+           fill1D(strtmp, deta, cnorm);
         }
 
     } // end of i-loop

@@ -52,6 +52,7 @@ HcalDigisValidation.h and HcalDigisClient.h
 --------------
 CaloTowers/test/macros
 +++++
+
 Copy these files:
 
 rootlogon.C and RelValMacro.C
@@ -64,6 +65,7 @@ InputRelVal_Medium_SLHC.txt
 
 CaloTowers/test/macros/html_indices
 ++++++
+
 Add these filese 
 
 RelVal_HcalDigis_SLHC.html 

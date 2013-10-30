@@ -30,15 +30,21 @@ use the ones with *SLHC*
 --- HcalRecHits
 ----------------
 HcalRecHits/src
+
 HcalRecHitsClient.cc and HcalRecHitsValidation.cc
+
 HcalRecHits/interface
+
 HcalRecHitsClient.h and HcalRecHitsValidation.h 
 
 --- HcalDigis
 --------------
 HcalDigis/src
+
 HcalDigisClient.cc and HcalDigisValidation.cc
+
 HcalDigis/interface
+
 HcalDigisValidation.h and HcalDigisClient.h
 
 
@@ -47,16 +53,21 @@ HcalDigisValidation.h and HcalDigisClient.h
 CaloTowers/test/macros
 +++++
 Copy these files:
+
 rootlogon.C and RelValMacro.C
 
 Add these files:
-RunRVMacros_SLHC.csh, 
+
+RunRVMacros_SLHC.csh
+
 InputRelVal_Medium_SLHC.txt
 
 CaloTowers/test/macros/html_indices
 ++++++
 Add these filese 
+
 RelVal_HcalDigis_SLHC.html 
+
 RelVal_RecHits_SLHC.html
 
 
